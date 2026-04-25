@@ -1,0 +1,30 @@
+services:
+  rackpeek:
+    image: aptacode/rackpeek:${RACKPEEK_VERSION:-latest}
+    container_name: rackpeek
+    hostname: rackpeek
+    restart: unless-stopped
+
+    ports:
+      # RackPeek web UI
+      - "${WEB_PORT:-8080}:8080"
+
+    environment:
+      # Optional API key for the REST inventory endpoints.
+      # Leave empty to disable the API entirely (web UI still works).
+      RPK_API_KEY: "${RPK_API_KEY:-}"
+
+      # Internal config directory — do not change unless you remap the volume below.
+      RPK_YAML_DIR: /app/config
+
+    volumes:
+      # ZFS dataset (or any host path) where config.yaml is stored.
+      # Inside the container this is always /app/config.
+      - "${CONFIG_ROOT:-/mnt/MainPool/rackpeek/config}:/app/config:rw"
+
+    healthcheck:
+      test: ["CMD-SHELL", "curl -sf http://localhost:8080 | grep -q 'rackpeek' || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 15s

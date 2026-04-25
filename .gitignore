@@ -1,0 +1,5 @@
+# Local env file with secrets — never commit
+docker/.env
+
+# macOS
+.DS_Store
