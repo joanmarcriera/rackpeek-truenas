@@ -137,3 +137,8 @@ Config is safe on the ZFS volume — the update only replaces the container imag
 ## License
 
 MIT — see [LICENSE](LICENSE).
+
+<!-- vikunja-tracking -->
+## Tracking
+
+Vikunja project **48 · HomeLab — documentation & hygiene backlog** — https://familia.riera.co.uk/projects/48
